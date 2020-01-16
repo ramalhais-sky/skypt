@@ -21,17 +21,28 @@ The objective is:
 - [X] SSL @ramalhais-sky
 - [X] Valid SSL Certificate @ramalhais-sky
 - [X] Microsoft/Azure sky.uk authentication @ramalhais-sky
-- [X] Photo Capture in Chrome and Firefox @ramalhais-sky
+- [X] Photo Capture
+  - [X] Web @ramalhais-sky
+  - [ ] Android
+  - [ ] iOS
 - [ ] Upload foto
+  - [ ] Backend
+  - [ ] Web
+  - [ ] Firefox @ramalhais-sky
+  - [ ] Android
+  - [ ] iOS
 - [ ] Register package
+  - [ ] Backend
   - [ ] Web
   - [ ] Android
   - [ ] iOS
 - [ ] List user packages
+  - [ ] Backend
   - [ ] Web
   - [ ] Android
   - [ ] iOS
 - [ ] Security Guard Login
+  - [ ] Backend
   - [ ] Web
   - [ ] Android
   - [ ] iOS
@@ -40,6 +51,7 @@ The objective is:
 - [ ] Android App @sky-philipalmeida
 - [ ] iOS App @dfloureiro
 - [ ] App notification
+  - [ ] Backend
   - [ ] Web
   - [ ] Android
   - [ ] iOS
@@ -47,7 +59,7 @@ The objective is:
 
 # Nice to Have
 - [ ] App running on Docker
-- [ ] DB on Docker
+- [ ] DB running on Docker
 - [ ] App running on IMP/PIQ
 - [ ] DB running on IMP/PIQ
 - [ ] IMP DNS
