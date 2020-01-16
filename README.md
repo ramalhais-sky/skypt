@@ -60,15 +60,18 @@ The objective is:
 # Nice to Have
 - [ ] App running on Docker
 - [ ] DB running on Docker
-- [ ] App running on IMP/PIQ
-- [ ] DB running on IMP/PIQ
-- [ ] IMP DNS
+- [ ] App running on IMP/PIQ kubernetes
+- [ ] DB running on IMP/PIQ kubernetes
+- [ ] IMP/PIQ DNS/Ingress/F5
 - [ ] e-mail notification to user
-- [ ] Allow user to add tracking number of an expected package
-- [ ] Allow user to add slack username and reveive slack notification
-- [ ] Allow user to add tracking number using a bot in slack
 
 # Ideas
+- [ ] Sky Staffer: add tracking number of an expected package
+- [ ] Security Guard: List expected tracking numbers and select to register
+- [ ] Sky Staffer: add slack username and receive slack notification
+- [ ] Allow user to add tracking number using a bot in slack
+
+# Crazy Ideas
 - [ ] OCR Name and register package automatically
 - [ ] OCR Tracking number and match to a user's expected package
 - [ ] Read barcodes,qr codes used in shipping to get the recipient name, phone and tracking number, and register automatically. 
@@ -76,7 +79,8 @@ The objective is:
 - [ ] Sell this product to the world :D
 
 # Notes
-- Markdown cheat-sheet
+
+## Markdown cheat-sheet
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
 ## Install latest python
