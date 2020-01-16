@@ -22,7 +22,7 @@ The objective is:
 - [X] Microsoft/Azure sky.uk authentication @ramalhais-sky
 - [X] Photo Capture in Chrome and Firefox @ramalhais-sky
 - [ ] Upload foto
-- [ ] Register package [ ] Web [ ] Android [ ] iOS
+- [ ] Register package - [ ] Web [ ] Android [ ] iOS
 - [ ] List user packages [ ] Web [ ] Android [ ] iOS
 - [ ] Security Guard Login [ ] Web [ ] Android [ ] iOS
 - [ ] Authentication: Register package
