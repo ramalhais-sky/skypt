@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include('package_tracking.urls')),
     path('package_tracking/', include('package_tracking.urls')),
     path('admin/', admin.site.urls),
     path('microsoft/', include('microsoft_auth.urls', namespace='microsoft')),
