@@ -1,5 +1,6 @@
 # What is this
 Sky Package Tracking (skypt) is an idea to improve the experience of Sky Staff when receiving packages.
+
 The objective is:
 - Easier and faster package registration for the security guard.
 - Package arrival notification for the recipient.
