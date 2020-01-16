@@ -139,7 +139,7 @@ python manage.py runsslserver --certificate ../crt --key ../key 0.0.0.0:443
 python manage.py runsslserver 0.0.0.0:443
 ```
 
-# Start HTTP server (no HTTPS/SSL)
+## Start HTTP server (no HTTPS/SSL)
 ```bash
 python manage.py runserver 0.0.0.0:80
 ```
