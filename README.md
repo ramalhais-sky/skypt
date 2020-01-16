@@ -5,9 +5,19 @@
 - [X] Photo Capture in Chrome and Firefox
 - [ ] Upload foto
 - [ ] Register package
-- [ ] Security Guard Login
 - [ ] Implement personal package list
+- [ ] Security Guard Login
+- [ ] Protect Register package
 - [ ] Protect personal package list
+- [ ] Android App
+- [ ] iOS App
+- [ ] Powerpoint Presentation/Demo
+
+# Nice to Have
+- [ ] App running on Docker
+- [ ] App running on IMP/PIQ
+- [ ] DB running on IMP/PIQ
+- [ ] IMP DNS
 
 # Notes
 - Markdown cheat-sheet
