@@ -1,23 +1,53 @@
+# What is this
+Sky Package Tracking (skypt) is an idea to improve the experience of Sky Staff when receiving packages.
+The objective is:
+- Easier and faster package registration for the security guard.
+- Package arrival notification for the recipient.
+
+# How it should work
+0. Package arrives.
+0. Security Guard logs in to the application.
+0. Security Guard takes photo in application.
+0. Security Guard fills in the recipient name.
+0. Security Guard confirms Package Registration.
+0. Sky Staffer receives notification e-mail (optionally slack).
+0. Sky Staffer goes to the Security Guard.
+0. Sky Staffer logs in to the application.
+0. Sky Staffer marks the package as Retrieve.
+0. Security Guard checks Package Retrieve List, compares Package Photo against package and delivers the package to Sky Staffer.
+
 # TODO
-- [X] SSL
-- [X] Valid SSL Certificate 
-- [X] Microsoft/Azure sky.uk authentication
-- [X] Photo Capture in Chrome and Firefox
+- [X] SSL @ramalhais-sky
+- [X] Valid SSL Certificate @ramalhais-sky
+- [X] Microsoft/Azure sky.uk authentication @ramalhais-sky
+- [X] Photo Capture in Chrome and Firefox @ramalhais-sky
 - [ ] Upload foto
-- [ ] Register package
-- [ ] Implement personal package list
-- [ ] Security Guard Login
-- [ ] Protect Register package
-- [ ] Protect personal package list
-- [ ] Android App
-- [ ] iOS App
+- [ ] Register package [ ] Web [ ] Android [ ] iOS
+- [ ] List user packages [ ] Web [ ] Android [ ] iOS
+- [ ] Security Guard Login [ ] Web [ ] Android [ ] iOS
+- [ ] Authentication: Register package
+- [ ] Authentication: List user packages
+- [ ] Android App @sky-philipalmeida
+- [ ] iOS App @dfloureiro
 - [ ] Powerpoint Presentation/Demo
 
 # Nice to Have
 - [ ] App running on Docker
+- [ ] DB on Docker
 - [ ] App running on IMP/PIQ
 - [ ] DB running on IMP/PIQ
 - [ ] IMP DNS
+- [ ] e-mail notification to user
+- [ ] Allow user to add tracking number of an expected package
+- [ ] Allow user to add slack username and reveive slack notification
+- [ ] Allow user to add tracking number using a bot in slack
+
+# Ideas
+- [ ] OCR Name and register package automatically
+- [ ] OCR Tracking number and match to a user's expected package
+- [ ] Read barcodes,qr codes used in shipping to get the recipient name, phone and tracking number, and register automatically. 
+- [ ] Integrate geartrack functionality
+- [ ] Sell this product to the world :D
 
 # Notes
 - Markdown cheat-sheet
