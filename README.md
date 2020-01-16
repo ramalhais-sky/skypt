@@ -29,6 +29,7 @@ The objective is:
 - [ ] Authentication: List user packages
 - [ ] Android App @sky-philipalmeida
 - [ ] iOS App @dfloureiro
+- [ ] App notification [ ] Web [ ] Android [ ] iOS
 - [ ] Powerpoint Presentation/Demo
 
 # Nice to Have
