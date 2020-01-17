@@ -74,8 +74,20 @@ The objective is:
 # Crazy Ideas
 - [ ] OCR Name and register package automatically
 - [ ] OCR Tracking number and match to a user's expected package
+  - https://tesseract.projectnaptha.com/
+    - https://progur.com/2016/10/how-to-use-tesseract-for-ocr-javascript.html
+    - https://www.ttmind.com/TechPost/HOW-TO-EXTRACT-TEXT-FROM-IMAGE-USING-JAVASCRIPT-OCR-with-Tesseract-js
+  - https://kdzwinel.github.io/JS-OCR-demo/
+  - http://antimatter15.com/ocrad.js/demo.html
 - [ ] Read barcodes,qr codes used in shipping to get the recipient name, phone and tracking number, and register automatically. 
-- [ ] Integrate geartrack functionality
+  - https://github.com/yushulx/zxing-cpp-emscripten/tree/master/examples/js
+    - https://dd.ramalhais.com/.well-known/index.html
+  - https://www.codepool.biz/html5-barcode-reader-javascript-webassembly.html
+  - https://serratus.github.io/quaggaJS/
+    - https://a.kabachnik.info/a-javascript-barcode-reader-with-bootstrap-3-and-quaggajs.html
+- [ ] Integrate tracking functionality
+  - https://geartrack.hdn.pt/
+  - https://www.17track.net/en
 - [ ] Sell this product to the world :D
 
 # Notes
