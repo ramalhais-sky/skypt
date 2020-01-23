@@ -1,0 +1,35 @@
+frameworkVersion: "=1.53.0"
+
+# Welcome to Serverless!
+#
+# For full config options, check the kubeless plugin docs:
+#    https://github.com/serverless/serverless-kubeless
+#
+# For documentation on kubeless itself:
+#    http://kubeless.io
+
+# Update the service name below with your own service name
+service: skypt
+
+# Please ensure the serverless-kubeless provider plugin is installed globally.
+# $ npm install -g serverless-kubeless
+#
+# ...before installing project dependencies to register this provider.
+# $ npm install
+
+provider:
+  name: kubeless
+  runtime: imp-python3.7
+  namespace: imp-test
+  hostname: skypt.dev.hhe.nonprod.imp.sky.com
+
+plugins:
+  - serverless-kubeless
+
+functions:
+  getuser:
+    handler: handler.getuser
+    events: 
+     - http:
+        path: /getuser
+
