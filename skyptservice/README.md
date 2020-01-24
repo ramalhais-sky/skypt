@@ -23,7 +23,7 @@ curl -X GET \
 \
 \
 \
-**Kubeless runtime update helpers:**
+**Kubeless runtime update helpers:** \
 kubectl edit configmap kubeless-config -n kubeless \
 kubectl scale deployments.apps \
 kubeless-controller-manager -n kubeless --replicas=1 \
