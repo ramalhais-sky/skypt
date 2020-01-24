@@ -22,7 +22,36 @@ provider:
   runtime: imp-python3.7
   namespace: imp-test
   hostname: skypt.dev.hhe.nonprod.imp.sky.com
-
+  ingress:
+    class: avi
+    additionalAnnotations:
+      avi_proxy: '{"virtualservice": {"services": [{"port": 443, "enable_ssl": true}], "east_west_placement": false, "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"], "ssl_profile_ref": "/api/sslprofile/?name=System-Standard"}}'
+  environment:
+    - name: skypt_ldapnode
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: ldapnode
+    - name: skypt_ldapuser
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: ldapuser
+    - name: skypt_ldappass
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: ldappass
+    - name: skypt_ldapbase
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: ldapbase
+    - name: skypt_token
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: token
 plugins:
   - serverless-kubeless
 
@@ -31,30 +60,8 @@ package:
    - secrets
 
 functions:
-  getuser:
-    handler: handler.getuser
-    environment:
-      - name: skypt_ldapnode
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: ldapnode
-      - name: skypt_ldapuser
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: ldapuser
-      - name: skypt_ldappass
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: ldappass
-      - name: skypt_ldapbase
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: ldapbase
+  employee-getbyname:
+    handler: handler_employee.getByName
     events: 
      - http:
-        path: /getuser
-
+        path: /employee/getbyname

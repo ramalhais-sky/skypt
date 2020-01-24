@@ -7,6 +7,8 @@ env_ldapuser = os.environ['skypt_ldapuser']
 env_ldappass = os.environ['skypt_ldappass']
 env_ldapbase = os.environ['skypt_ldapbase']
 
+env_token = os.environ['skypt_token']
+
 con = ldap.initialize("ldap://"+env_ldapnode)
 con.simple_bind_s(env_ldapuser,env_ldappass)
 ldap_base = env_ldapbase
@@ -16,8 +18,23 @@ def getValue(data,key):
         return data[key][0]
     else:
         return ""
+    
+def validateToken(data):
+    token = ""
+    if 'token' in data.keys():
+        token = data['token']
+    if (token!=env_token):
+        return {
+            "statusCode": 401,
+            "body": "Invalid token"
+        }
+    return 0
 
-def getuser(event, context):
+def getByName(event, context):
+
+    resp = validateToken(event['data'])
+    if resp!=0:
+        return resp
 
     query = f"(& (objectclass=user) (cn=*{event['data']['username'].replace(' ','*')}*))"
     result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
@@ -48,4 +65,4 @@ def getuser(event, context):
 # export skypt_ldapuser=
 # export skypt_ldappass=''
 # export skypt_ldapbase=''
-# print(json.dumps(getuser({"data":{"username":'dave'}}, '')))
+# print(json.dumps(getbyname({"data":{"username":'dave'}}, '')))
