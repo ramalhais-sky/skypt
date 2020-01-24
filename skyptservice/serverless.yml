@@ -26,9 +26,34 @@ provider:
 plugins:
   - serverless-kubeless
 
+package:
+ exclude:
+   - secrets
+
 functions:
   getuser:
     handler: handler.getuser
+    environment:
+      - name: skypt_ldapnode
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapnode
+      - name: skypt_ldapuser
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapuser
+      - name: skypt_ldappass
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldappass
+      - name: skypt_ldapbase
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapbase
     events: 
      - http:
         path: /getuser
