@@ -21,7 +21,7 @@ def validateAddPackageRequest(requestdata):
     if 'data' not in requestdata.keys():
         return lib_common_http.getBadRequestErrorResponse()
 
-    if 'email' not in requestdata['data'].keys():
+    if 'user' not in requestdata['data'].keys():
         return lib_common_http.getBadRequestErrorResponse()
 
     if 'package' not in requestdata['data'].keys():

@@ -85,7 +85,7 @@ CREATE DATABASE `imp-skypt`;
 ```
 CREATE TABLE package (
     id int NOT NULL AUTO_INCREMENT,
-    email varchar(255),
+    user varchar(255),
     package LONGTEXT,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -99,11 +99,11 @@ GRANT ALL privileges ON \`database\`.* TO 'username'@'%';
 **Sample data:**
 ```
 MariaDB [imp-skypt]> select * from package;
-+----+----------------+-------------------------------+---------------------+---------------------+
-| id | email          | package                       | created             | updated             |
-+----+----------------+-------------------------------+---------------------+---------------------+
-|  5 | philip@now.com | data:image/png;base64,iVBO... | 2020-01-25 00:51:08 | 2020-01-25 00:51:08 |
-+----+----------------+-------------------------------+---------------------+---------------------+
++----+------+-------------+---------------------+---------------------+
+| id | user | package     | created             | updated             |
++----+------+-------------+---------------------+---------------------+
+|  5 | user | imagebase64 | 2020-01-25 21:45:39 | 2020-01-25 21:45:39 |
++----+------+-------------+---------------------+---------------------+
 ```
 
 ## Build a runtime

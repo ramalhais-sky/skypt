@@ -17,8 +17,8 @@ def add(event, context):
 
     try:
         cursor = dbcon.cursor()
-        sql = "INSERT INTO package (email, package) VALUES (%s, %s)"
-        val = (event['data']['email'], event['data']['package'])
+        sql = "INSERT INTO package (user, package) VALUES (%s, %s)"
+        val = (event['data']['user'], event['data']['package'])
         cursor.execute(sql, val)
         dbcon.commit()
         response = {
