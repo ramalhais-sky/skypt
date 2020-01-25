@@ -57,11 +57,11 @@ plugins:
 
 package:
  exclude:
-   - secrets
+   - docs
 
 functions:
   employee-getbyname:
-    handler: handler_employee.getByName
+    handler: lib_handler_employee.getByName
     events: 
      - http:
         path: /employee/getbyname
