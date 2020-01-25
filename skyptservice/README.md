@@ -15,14 +15,14 @@ curl -X GET \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
   -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
-  -d '{"token":"772FDCDA27C4572D141E27B3E21E5","name":"almeida philip"}'
+  -d '{"token":"xxx","name":"John Doe"}'
 ```
 
 #### Success response body
 ```
 {
     "statusCode": 200,
-    "body": "{'total': 1, 'employees': [{'cn': 'Almeida, Philip', 'user': '', 'email': '', 'mobile': ''}]}"
+    "body": "{'total': 1, 'employees': [{'cn': 'Doe, John', 'user': '', 'email': '', 'mobile': ''}]}"
 }
 ```
 #### Error response body
@@ -80,5 +80,5 @@ kubeless get-server-config
 kubectl logs -n kubeless -l kubeless=controller -c kubeless-function-controller
 ```
 ```
-kubeless function call getuser --data '{"username":"Albemarle"}
+kubeless function call employee-getbyname --data '{"token":"xxx","name":"Doe John"}'
 ```

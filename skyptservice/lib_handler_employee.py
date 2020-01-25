@@ -54,4 +54,4 @@ def getByName(event, context):
 # export skypt_ldappass=''
 # export skypt_ldapbase=''
 # export skypt_token =
-# print(json.dumps(getbyname({"data":{"username":'dave'}}, '')))
+# print(json.dumps(getByName({"data":{"token":"xxx","name":"Doe"}}, '')))
