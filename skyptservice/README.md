@@ -6,7 +6,41 @@
 ## Install:
 serverless deploy
 
-## Endpoints
+# Endpoints
+
+## Package
+
+### /package/add
+```
+curl -X GET \
+  https://10.79.123.102/package/add \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
+  -d '{"token":"xxx","email":"john.doe@xxx.com","package":"data:image/gif;base64,R0lGODlh..."}'
+```
+
+#### Success response body
+```
+{
+    "statusCode": 200,
+    "body": "Record inserted 1"
+}
+```
+
+#### Error response body
+```
+{
+    "statusCode": 401,
+    "body": "Invalid token"
+}
+{
+    "statusCode": 400,
+    "body": "Bad request"
+}
+```
+
+## Employee
 
 ### /employee/getbyname
 ```
@@ -25,11 +59,16 @@ curl -X GET \
     "body": "{'total': 1, 'employees': [{'cn': 'Doe, John', 'user': '', 'email': '', 'mobile': ''}]}"
 }
 ```
+
 #### Error response body
 ```
 {
     "statusCode": 401,
     "body": "Invalid token"
+}
+{
+    "statusCode": 400,
+    "body": "Bad request"
 }
 ```
 
@@ -53,6 +92,10 @@ CREATE TABLE package (
     PRIMARY KEY (id)
 );
 ```
+**User:** 
+CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+GRANT ALL privileges ON \`database\`.* TO 'username'@'%';
+
 **Sample data:**
 ```
 MariaDB [imp-skypt]> select * from package;
@@ -61,6 +104,15 @@ MariaDB [imp-skypt]> select * from package;
 +----+----------------+-------------------------------+---------------------+---------------------+
 |  5 | philip@now.com | data:image/png;base64,iVBO... | 2020-01-25 00:51:08 | 2020-01-25 00:51:08 |
 +----+----------------+-------------------------------+---------------------+---------------------+
+```
+
+## Build a runtime
+https://github.com/kubeless/runtimes
+```
+cd docs
+docker build -t python_ldap . -f Dockerfile.3.7
+docker tag python_ldap:latest freedomson/python_ldap:latest
+docker push freedomson/python_ldap:latest
 ```
 
 ## Kubeless runtime update helpers

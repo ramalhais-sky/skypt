@@ -2,7 +2,8 @@ import json
 import ldap
 import os
 
-import lib_common
+import lib_common_auth
+import lib_common_employee
 
 env_ldapnode = os.environ['skypt_ldapnode']
 env_ldapuser = os.environ['skypt_ldapuser']
@@ -20,7 +21,11 @@ def getValue(data,key):
         return ""
 
 def getByName(event, context):
-    resp = lib_common.validateToken(event)
+    resp = lib_common_auth.validateToken(event)
+    if resp!=0:
+        return resp
+
+    resp = lib_common_employee.validateGetByNameRequest(event)
     if resp!=0:
         return resp
 

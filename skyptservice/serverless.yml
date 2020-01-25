@@ -27,26 +27,6 @@ provider:
     additionalAnnotations:
       avi_proxy: '{"virtualservice": {"services": [{"port": 443, "enable_ssl": true}], "east_west_placement": false, "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"], "ssl_profile_ref": "/api/sslprofile/?name=System-Standard"}}'
   environment:
-    - name: skypt_ldapnode
-      valueFrom:
-        secretKeyRef:
-          name: skypt
-          key: ldapnode
-    - name: skypt_ldapuser
-      valueFrom:
-        secretKeyRef:
-          name: skypt
-          key: ldapuser
-    - name: skypt_ldappass
-      valueFrom:
-        secretKeyRef:
-          name: skypt
-          key: ldappass
-    - name: skypt_ldapbase
-      valueFrom:
-        secretKeyRef:
-          name: skypt
-          key: ldapbase
     - name: skypt_token
       valueFrom:
         secretKeyRef:
@@ -59,9 +39,71 @@ package:
  exclude:
    - docs
 
+#  _____                 _                       
+# | ____|_ __ ___  _ __ | | ___  _   _  ___  ___ 
+# |  _| | '_ ` _ \| '_ \| |/ _ \| | | |/ _ \/ _ \
+# | |___| | | | | | |_) | | (_) | |_| |  __/  __/
+# |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___|
+#                 |_|            |___/   
+
 functions:
-  employee-getbyname:
+  skypt-employee-getbyname:
     handler: lib_handler_employee.getByName
     events: 
      - http:
         path: /employee/getbyname
+    environment:
+      - name: skypt_ldapnode
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapnode
+      - name: skypt_ldapuser
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapuser
+      - name: skypt_ldappass
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldappass
+      - name: skypt_ldapbase
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapbase
+
+#  ____            _                    
+# |  _ \ __ _  ___| | ____ _  __ _  ___ 
+# | |_) / _` |/ __| |/ / _` |/ _` |/ _ \
+# |  __/ (_| | (__|   < (_| | (_| |  __/
+# |_|   \__,_|\___|_|\_\__,_|\__, |\___|
+#                            |___/   
+  skypt-package-add:
+    handler: lib_handler_package.add
+    events: 
+     - http:
+        path: /package/add
+    environment:
+      - name: skypt_dbhost
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: dbhost
+      - name: skypt_dbdatabase
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: dbdatabase
+      - name: skypt_dbuser
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: dbuser
+      - name: skypt_dbpass
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: dbpass
+

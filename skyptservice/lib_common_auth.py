@@ -1,21 +1,16 @@
 import os
+import lib_common_http
 
 env_token = os.environ['skypt_token']
 
 def validateToken(requestdata):
     if 'data' not in requestdata.keys():
-        return getErrorResponse()
+        return lib_common_http.getBadRequestErrorResponse()
         
     if 'token' not in requestdata['data'].keys():
-        return getErrorResponse()
+        return lib_common_http.getBadRequestErrorResponse()
     
     if (requestdata['data']['token']!=env_token):
-        return getErrorResponse()
+        return lib_common_http.getAuthErrorResponse()
 
     return 0
-
-def getErrorResponse():
-    return {
-        "statusCode": 401,
-        "body": "Invalid token"
-    }
