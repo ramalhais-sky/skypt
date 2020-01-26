@@ -1,8 +1,10 @@
 import json
 import os
 import lib_common_auth
+import lib_common_http
 import lib_common_package
 import sys
+import requests
 
 dbcon = lib_common_package.dbcon()
 
@@ -21,24 +23,61 @@ def add(event, context):
         val = (event['data']['user'], event['data']['package'])
         cursor.execute(sql, val)
         dbcon.commit()
-        response = {
-            "statusCode": 200,
-            "body": f'Record inserted {cursor.rowcount}'
-        }
+
+        ploads = {'token':event['data']['token'],'package':cursor.lastrowid}
+        r = requests.get(lib_common_http.endpoint_email_package,json=ploads)
+        ro = json.loads(r.text)
+        if ro["statusCode"]==200:
+            response = {
+                "statusCode": 200,
+                "body": {
+                    "package": cursor.lastrowid,
+                    "mail": "S"
+                }
+            }
+        else:
+            response = {
+                "statusCode": 206,
+                "body": {
+                    "package": cursor.lastrowid,
+                    "mail": "F"
+                }
+            }
 
     except: # catch *all* exceptions
         e = sys.exc_info()[0]
         response = {
             "statusCode": 400,
-            "body": f'{e}'
+            "body": e
         }
 
     return response
 
-# Local test set environment vars
-# export skypt_ldapnode=
-# export skypt_ldapuser=
-# export skypt_ldappass=''
-# export skypt_ldapbase=''
-# export skypt_token =
-# print(json.dumps(getByName({"data":{"token":"xxx","name":"Doe"}}, '')))
+def get(event, context):
+    resp = lib_common_auth.validateToken(event)
+    if resp!=0:
+        return resp
+
+    resp = lib_common_package.validateGetPackageRequest(event)
+    if resp!=0:
+        return resp
+    try:
+        cursor = dbcon.cursor(buffered=True, dictionary=True)
+        sql = f'SELECT id, user, package from package where id={event["data"]["package"]}'
+        cursor.execute(sql)
+        package = cursor.fetchone()
+        print(package)
+        response = {
+            "statusCode": 200,
+            "body": {
+                "package": package
+            }
+        }
+    except:
+        e = sys.exc_info()[0]
+        response = {
+            "statusCode": 400,
+            "body": e
+        }
+
+    return response

@@ -32,6 +32,27 @@ provider:
         secretKeyRef:
           name: skypt
           key: token
+    - name: skypt_dbhost
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: dbhost
+    - name: skypt_dbdatabase
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: dbdatabase
+    - name: skypt_dbuser
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: dbuser
+    - name: skypt_dbpass
+      valueFrom:
+        secretKeyRef:
+          name: skypt
+          key: dbpass
+
 plugins:
   - serverless-kubeless
 
@@ -39,14 +60,14 @@ package:
  exclude:
    - docs
 
-#  _____                 _                       
-# | ____|_ __ ___  _ __ | | ___  _   _  ___  ___ 
-# |  _| | '_ ` _ \| '_ \| |/ _ \| | | |/ _ \/ _ \
-# | |___| | | | | | |_) | | (_) | |_| |  __/  __/
-# |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___|
-#                 |_|            |___/   
-
 functions:
+
+  #  _____                 _                       
+  # | ____|_ __ ___  _ __ | | ___  _   _  ___  ___ 
+  # |  _| | '_ ` _ \| '_ \| |/ _ \| | | |/ _ \/ _ \
+  # | |___| | | | | | |_) | | (_) | |_| |  __/  __/
+  # |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___|
+  #                 |_|            |___/   
   skypt-employee-getbyname:
     handler: lib_handler_employee.getByName
     events: 
@@ -74,36 +95,32 @@ functions:
             name: skypt
             key: ldapbase
 
-#  ____            _                    
-# |  _ \ __ _  ___| | ____ _  __ _  ___ 
-# | |_) / _` |/ __| |/ / _` |/ _` |/ _ \
-# |  __/ (_| | (__|   < (_| | (_| |  __/
-# |_|   \__,_|\___|_|\_\__,_|\__, |\___|
-#                            |___/   
+  #  ____            _                    
+  # |  _ \ __ _  ___| | ____ _  __ _  ___ 
+  # | |_) / _` |/ __| |/ / _` |/ _` |/ _ \
+  # |  __/ (_| | (__|   < (_| | (_| |  __/
+  # |_|   \__,_|\___|_|\_\__,_|\__, |\___|
+  #                            |___/   
   skypt-package-add:
     handler: lib_handler_package.add
     events: 
      - http:
         path: /package/add
-    environment:
-      - name: skypt_dbhost
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: dbhost
-      - name: skypt_dbdatabase
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: dbdatabase
-      - name: skypt_dbuser
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: dbuser
-      - name: skypt_dbpass
-        valueFrom:
-          secretKeyRef:
-            name: skypt
-            key: dbpass
 
+  skypt-package-get:
+    handler: lib_handler_package.get
+    events: 
+     - http:
+        path: /package/get
+
+
+  #  _____                 _ _ 
+  # | ____|_ __ ___   __ _(_) |
+  # |  _| | '_ ` _ \ / _` | | |
+  # | |___| | | | | | (_| | | |
+  # |_____|_| |_| |_|\__,_|_|_|
+  skypt-email-package:
+    handler: lib_handler_email.package
+    events: 
+     - http:
+        path: /email/package

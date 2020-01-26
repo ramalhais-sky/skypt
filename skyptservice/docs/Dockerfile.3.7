@@ -15,7 +15,7 @@ ENV BITNAMI_APP_NAME="python" \
 RUN curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
 RUN python ./get-pip.py
 
-RUN pip install bottle==0.12.13 cherrypy==8.9.1 wsgi-request-logger prometheus_client python-ldap mysql-connector-python-rf
+RUN pip install bottle==0.12.13 cherrypy==8.9.1 wsgi-request-logger prometheus_client python-ldap mysql-connector-python requests
 
 WORKDIR /
 ADD kubeless.py .
