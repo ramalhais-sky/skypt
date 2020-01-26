@@ -25,7 +25,7 @@ def add(event, context):
         dbcon.commit()
 
         ploads = {'token':event['data']['token'],'package':cursor.lastrowid}
-        r = requests.get(lib_common_http.endpoint_email_package,json=ploads)
+        r = requests.get(lib_common_http.endpoints['email']['package'],json=ploads)
         ro = json.loads(r.text)
         if ro["statusCode"]==200:
             response = {

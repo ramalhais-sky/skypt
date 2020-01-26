@@ -37,3 +37,22 @@ def validateGetPackageRequest(requestdata):
         return lib_common_http.getBadRequestErrorResponse()
 
     return 0
+
+# TODO: use python schema package to validate response
+def validateGetPackageResponse(responsedata):
+    if 'body' not in responsedata.keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    if 'package' not in responsedata['body'].keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    if 'id' not in responsedata['body']['package'].keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    if 'user' not in responsedata['body']['package'].keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    if 'package' not in responsedata['body']['package'].keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    return 0
