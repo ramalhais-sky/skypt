@@ -53,6 +53,23 @@ def getByName(event, context):
 
     return response
 
+def getByUser(event, context):
+    resp = lib_common_auth.validateToken(event)
+    if resp!=0:
+        return resp
+
+    resp = lib_common_employee.validateGetByUserRequest(event)
+    if resp!=0:
+        return resp
+
+    response = {
+        "statusCode": 200,
+        "body": "user"
+    }
+
+    return response
+
+    
 # Local test set environment vars
 # export skypt_ldapnode=
 # export skypt_ldapuser=

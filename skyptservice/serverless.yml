@@ -95,6 +95,33 @@ functions:
             name: skypt
             key: ldapbase
 
+  skypt-employee-getbyuser:
+    handler: lib_handler_employee.getByUser
+    events: 
+     - http:
+        path: /employee/getbyuser
+    environment:
+      - name: skypt_ldapnode
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapnode
+      - name: skypt_ldapuser
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapuser
+      - name: skypt_ldappass
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldappass
+      - name: skypt_ldapbase
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: ldapbase
+
   #  ____            _                    
   # |  _ \ __ _  ___| | ____ _  __ _  ___ 
   # | |_) / _` |/ __| |/ / _` |/ _` |/ _ \
