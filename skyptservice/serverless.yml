@@ -69,7 +69,7 @@ functions:
   # |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___|
   #                 |_|            |___/   
   skypt-employee-getbyname:
-    handler: lib_handler_employee.getByName
+    handler: function_handler_employee.getByName
     events: 
      - http:
         path: /employee/getbyname
@@ -96,7 +96,7 @@ functions:
             key: ldapbase
 
   skypt-employee-getbyuser:
-    handler: lib_handler_employee.getByUser
+    handler: function_handler_employee.getByUser
     events: 
      - http:
         path: /employee/getbyuser
@@ -129,13 +129,13 @@ functions:
   # |_|   \__,_|\___|_|\_\__,_|\__, |\___|
   #                            |___/   
   skypt-package-add:
-    handler: lib_handler_package.add
+    handler: function_handler_package.add
     events: 
      - http:
         path: /package/add
 
   skypt-package-get:
-    handler: lib_handler_package.get
+    handler: function_handler_package.get
     events: 
      - http:
         path: /package/get
@@ -147,7 +147,7 @@ functions:
   # | |___| | | | | | (_| | | |
   # |_____|_| |_| |_|\__,_|_|_|
   skypt-email-package:
-    handler: lib_handler_email.package
+    handler: function_handler_email.package
     events: 
      - http:
         path: /email/package
