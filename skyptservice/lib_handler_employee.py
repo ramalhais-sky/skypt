@@ -14,12 +14,6 @@ con = ldap.initialize(f'ldap://{env_ldapnode}')
 con.simple_bind_s(env_ldapuser,env_ldappass)
 ldap_base = env_ldapbase
 
-def getValue(data,key):
-    if key in data.keys():
-        return data[key][0]
-    else:
-        return ""
-
 def getByName(event, context):
     resp = lib_common_auth.validateToken(event)
     if resp!=0:
@@ -29,27 +23,31 @@ def getByName(event, context):
     if resp!=0:
         return resp
 
-    query = f"(& (objectclass=user) (cn=*{event['data']['name'].replace(' ','*')}*))"
-    result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
-    results = []
-    for dn, user in result:
-        x = {
-            "cn": getValue(user,"cn"),
-            "user": getValue(user,"sAMAccountName"),
-            "email": getValue(user,"mail"),
-            "mobile": getValue(user,"mobile")
+    try:
+        query = f"(& (objectclass=user) (cn=*{event['data']['name'].replace(' ','*')}*))"
+        result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+        results = []
+        for dn, user in result:
+            x = {
+                "cn": lib_common_employee.getPropertyValue(user,"cn"),
+                "user": lib_common_employee.getPropertyValue(user,"sAMAccountName"),
+                "email": lib_common_employee.getPropertyValue(user,"mail"),
+                "mobile": lib_common_employee.getPropertyValue(user,"mobile")
+            }
+            results.append(x)
+
+        response = {
+            "statusCode": 200,
+            "body": {
+                "total": len(results),
+                "employees": results
+            }
         }
-        results.append(x)
-
-    body = {
-        "total": len(results),
-        "employees": results
-    }
-
-    response = {
-        "statusCode": 200,
-        "body": str(body).replace(": b'",": '")
-    }
+    except Exception as e:
+        response = {
+            "statusCode": 404,
+            "body": e
+        }
 
     return response
 
@@ -61,19 +59,31 @@ def getByUser(event, context):
     resp = lib_common_employee.validateGetByUserRequest(event)
     if resp!=0:
         return resp
-
-    response = {
-        "statusCode": 200,
-        "body": "user"
-    }
+        
+    try:
+        query = f"(& (objectclass=user) (sAMAccountName={event['data']['user']}))"
+        result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+        results = []
+        for dn, user in result:
+            x = {
+                "cn": lib_common_employee.getPropertyValue(user,"cn"),
+                "user": lib_common_employee.getPropertyValue(user,"sAMAccountName"),
+                "email": lib_common_employee.getPropertyValue(user,"mail"),
+                "mobile": lib_common_employee.getPropertyValue(user,"mobile")
+            }
+            results.append(x)
+            print(x)
+        response = {
+            "statusCode": 200,
+            "body": {
+                "total": len(results),
+                "employees": results
+            }
+        }
+    except Exception as e:
+        response = {
+            "statusCode": 404,
+            "body": e
+        }
 
     return response
-
-    
-# Local test set environment vars
-# export skypt_ldapnode=
-# export skypt_ldapuser=
-# export skypt_ldappass=''
-# export skypt_ldapbase=''
-# export skypt_token =
-# print(json.dumps(getByName({"data":{"token":"xxx","name":"Doe"}}, '')))
