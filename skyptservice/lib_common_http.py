@@ -4,6 +4,9 @@ endpoints = {
     },
     "package": {
         "get": 'http://skypt-package-get:8080/package/get'
+    },
+    "employee": {
+        "getbyuser": 'http://skypt-employee-getbyuser:8080/employee/getbyuser'
     }
 }
 

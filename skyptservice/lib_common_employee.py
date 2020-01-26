@@ -25,3 +25,13 @@ def validateGetByUserRequest(requestdata):
         return lib_common_http.getBadRequestErrorResponse()
 
     return 0
+
+# TODO: use python schema package to validate response
+def validateGetByUserResponse(responsedata):
+    if 'body' not in responsedata.keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    if 'employees' not in responsedata['body'].keys():
+        return lib_common_http.getBadRequestErrorResponse()
+
+    return 0
