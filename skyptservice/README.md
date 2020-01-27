@@ -12,12 +12,10 @@ serverless deploy
 
 ### /package/add
 ```
-curl -X GET \
-  https://10.79.123.102/package/add \
+curl -k -X GET \
+  https://skypt.lisbongames.com/package/add \
   -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
-  -d '{"token":"xxx","user":"xpto31","package":"data:image/gif;base64,R0lGODlh..."}'
+  -d '{"token":"xxx","user":"pal31","package":"data:image/gif;base64,R0lGODlhPQBEAPeoAJo..."}'
 ```
 ```
 {
@@ -31,12 +29,10 @@ curl -X GET \
 
 ### /package/get
 ```
-curl -X GET \
-  https://10.79.123.102/package/get \
+curl -k -X GET \
+  https://skypt.lisbongames.com/package/get \
   -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
-  -d '{"token":"xxx","package":"129"}'
+  -d '{"token":"xxx","package":"920"}'
 ```
 ```
 {
@@ -55,12 +51,10 @@ curl -X GET \
 
 ### /employee/getbyname
 ```
-curl -X GET \
-  https://10.79.123.102/employee/getbyname \
+curl -k -X GET \
+  https://skypt.lisbongames.com/employee/getbyname \
   -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
-  -d '{"token":"xxx","name":"Doe John"}'
+  -d '{"token":"xxx","name":"almeida philip"}'
 ```
 ```
 {
@@ -81,12 +75,10 @@ curl -X GET \
 
 ### /employee/getbyuser
 ```
-curl -X GET \
-  https://10.79.123.102/employee/getbyname \
+curl -k -X GET \
+  https://skypt.lisbongames.com/employee/getbyuser \
   -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -H 'host: skypt.dev.hhe.nonprod.imp.sky.com' \
-  -d '{"token":"xxx","user":"xpto31"}'
+  -d '{"token":"xxx","user":"pal31"}'
 ```
 ```
 {
@@ -133,9 +125,9 @@ GRANT ALL privileges ON \`database\`.* TO 'username'@'%';
 **Sample data:**
 ```
 MariaDB [imp-skypt]> select * from package;
-+----+------+-------------+---------------------+---------------------+
-| id | user | package     | created             | updated             |
-+----+------+-------------+---------------------+---------------------+
-|  5 | user | imagebase64 | 2020-01-25 21:45:39 | 2020-01-25 21:45:39 |
-+----+------+-------------+---------------------+---------------------+
++----+-------+----------------------------------------------+-------+---------------------+---------------------+
+| id | user  | package                                      | email | created             | updated             |
++----+-------+----------------------------------------------+-------+---------------------+---------------------+
+|  4 | pal31 | data:image/gif;base64,R0lGODlhPQBEAPeoAJo... | P     | 2020-01-27 22:13:24 | 2020-01-27 22:13:24 |
++----+-------+----------------------------------------------+-------+---------------------+---------------------+
 ```

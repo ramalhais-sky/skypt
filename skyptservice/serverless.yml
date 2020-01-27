@@ -21,7 +21,7 @@ provider:
   name: kubeless
   runtime: imp-python3.7
   namespace: imp-test
-  hostname: skypt.dev.hhe.nonprod.imp.sky.com
+  hostname: skypt.lisbongames.com
   ingress:
     class: avi
     additionalAnnotations:
