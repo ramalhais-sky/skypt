@@ -25,7 +25,41 @@ provider:
   ingress:
     class: avi
     additionalAnnotations:
-      avi_proxy: '{"virtualservice": {"services": [{"port": 443, "enable_ssl": true}], "east_west_placement": false, "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"], "ssl_profile_ref": "/api/sslprofile/?name=System-Standard"},"vip": [{ "auto_allocate_ip": false, "ip_address": { "addr": "10.79.122.149", "type": "V4" } }]}'
+      avi_proxy: |
+        {
+          "version": "18.2.1",
+          "pool": {
+            "health_monitor_refs": []
+          },
+          "virtualservice": {
+            "east_west_placement": false,
+            "vip": [{ "ip_address": { "addr": "10.79.122.149", "type": "V4" } }],
+            "application_profile_ref": "/api/applicationprofile/?name=System-Secure-HTTP",
+            "ssl_profile_ref": "/api/sslprofile/?name=System-Standard",
+            "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"],
+            "services": [
+              {
+                "enable_ssl": true,
+                "port": 443,
+                "port_range_end": 443
+              }
+            ],
+            "analytics_policy" : {
+              "metrics_realtime_update" : {
+                "duration": 30,
+                "enabled": true
+              },
+              "full_client_logs": {
+                "duration": 0,
+                "throttle": 0,
+                "enabled": true
+              },
+              "non_significant_log_throttle": 0,
+              "significant_log_throttle": 0,
+              "client_insights": "NO_INSIGHTS"
+            }
+          }
+        }
   environment:
     - name: skypt_token
       valueFrom:

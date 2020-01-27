@@ -22,7 +22,6 @@ def add(event, context):
         sql = "INSERT INTO package (user, package) VALUES (%s, %s)"
         val = (event['data']['user'], event['data']['package'])
         cursor.execute(sql, val)
-        dbcon.commit()
 
         ploads = {'token':event['data']['token'],'package':cursor.lastrowid}
         r = requests.get(lib_common_http.endpoints['email']['package'],json=ploads)
@@ -62,7 +61,8 @@ def get(event, context):
     if resp!=0:
         return resp
     try:
-        cursor = dbcon.cursor(buffered=True, dictionary=True)
+
+        cursor = dbcon.cursor(dictionary=True)
         sql = f'SELECT id, user, package from package where id={event["data"]["package"]}'
         cursor.execute(sql)
         package = cursor.fetchone()

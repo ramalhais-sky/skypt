@@ -10,10 +10,6 @@ env_ldapuser = os.environ['skypt_ldapuser']
 env_ldappass = os.environ['skypt_ldappass']
 env_ldapbase = os.environ['skypt_ldapbase']
 
-con = ldap.initialize(f'ldap://{env_ldapnode}')
-con.simple_bind_s(env_ldapuser,env_ldappass)
-ldap_base = env_ldapbase
-
 def getByName(event, context):
     resp = lib_common_auth.validateToken(event)
     if resp!=0:
@@ -24,6 +20,9 @@ def getByName(event, context):
         return resp
 
     try:
+        con = ldap.initialize(f'ldap://{env_ldapnode}')
+        con.simple_bind_s(env_ldapuser,env_ldappass)
+        ldap_base = env_ldapbase
         query = f"(& (objectclass=user) (cn=*{event['data']['name'].replace(' ','*')}*))"
         result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
         results = []
@@ -61,6 +60,9 @@ def getByUser(event, context):
         return resp
         
     try:
+        con = ldap.initialize(f'ldap://{env_ldapnode}')
+        con.simple_bind_s(env_ldapuser,env_ldappass)
+        ldap_base = env_ldapbase
         query = f"(& (objectclass=user) (sAMAccountName={event['data']['user']}))"
         result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
         results = []

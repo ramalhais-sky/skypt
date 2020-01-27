@@ -14,6 +14,7 @@ def dbcon():
         passwd=env_dbpass,
         database=env_dbdatabase
     )
+    db.autocommit = True
     return db
 
 
