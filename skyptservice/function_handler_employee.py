@@ -25,6 +25,7 @@ def getByName(event, context):
         ldap_base = env_ldapbase
         query = f"(& (objectclass=user) (cn=*{event['data']['name'].replace(' ','*')}*))"
         result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+        con.unbind_s()
         results = []
         for dn, user in result:
             x = {
@@ -65,6 +66,7 @@ def getByUser(event, context):
         ldap_base = env_ldapbase
         query = f"(& (objectclass=user) (sAMAccountName={event['data']['user']}))"
         result = con.search_s(ldap_base, ldap.SCOPE_SUBTREE, query)
+        con.unbind_s()
         results = []
         for dn, user in result:
             x = {
