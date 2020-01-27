@@ -25,7 +25,7 @@ provider:
   ingress:
     class: avi
     additionalAnnotations:
-      avi_proxy: '{"virtualservice": {"services": [{"port": 443, "enable_ssl": true}], "east_west_placement": false, "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"], "ssl_profile_ref": "/api/sslprofile/?name=System-Standard"},"vip": [{ "ip_address": { "addr": "10.79.123.102", "type": "V4" } }]}'
+      avi_proxy: '{"virtualservice": {"services": [{"port": 443, "enable_ssl": true}], "east_west_placement": false, "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"], "ssl_profile_ref": "/api/sslprofile/?name=System-Standard"},"vip": [{ "auto_allocate_ip": "false", "ip_address": { "addr": "10.79.123.102", "type": "V4" } }]}'
   environment:
     - name: skypt_token
       valueFrom:
