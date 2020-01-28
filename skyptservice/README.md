@@ -4,7 +4,10 @@
 * npm
 
 ## Install:
+```
+npm install
 serverless deploy
+```
 
 # Endpoints
 
