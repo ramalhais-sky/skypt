@@ -20,7 +20,7 @@ service: skypt
 provider:
   name: kubeless
   runtime: imp-python3.7
-  namespace: imp-test
+  namespace: imp-hackday
   hostname: hackday.imp.sky.com
   ingress:
     class: avi
