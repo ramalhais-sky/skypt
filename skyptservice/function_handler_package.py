@@ -18,6 +18,7 @@ def add(event, context):
         return resp
 
     try:
+        dbcon.ping(reconnect=True, attempts=3, delay=5)
         cursor = dbcon.cursor()
         sql = "INSERT INTO package (user, package) VALUES (%s, %s)"
         val = (event['data']['user'], event['data']['package'])
@@ -61,7 +62,7 @@ def get(event, context):
     if resp!=0:
         return resp
     try:
-
+        dbcon.ping(reconnect=True, attempts=3, delay=5)
         cursor = dbcon.cursor(dictionary=True)
         sql = f'SELECT id, user, package from package where id={event["data"]["package"]}'
         cursor.execute(sql)
