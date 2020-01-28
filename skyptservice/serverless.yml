@@ -33,7 +33,7 @@ provider:
           },
           "virtualservice": {
             "east_west_placement": false,
-            "vip": [{ "ip_address": { "addr": "10.79.123.102", "type": "V4" } }],
+            "vip": [{ "ip_address": { "addr": "10.79.123.99", "type": "V4" } }],
             "application_profile_ref": "/api/applicationprofile/?name=System-Secure-HTTP",
             "ssl_profile_ref": "/api/sslprofile/?name=System-Standard",
             "ssl_key_and_certificate_refs": ["/api/sslkeyandcertificate?name=System-Default-Cert"],
