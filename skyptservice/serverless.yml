@@ -185,3 +185,24 @@ functions:
     events: 
      - http:
         path: /email/package
+    environment:
+      - name: skypt_email_sender
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: email_sender
+      - name: skypt_email_subject
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: email_subject
+      - name: skypt_email_host
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: email_host
+      - name: skypt_email_host_port
+        valueFrom:
+          secretKeyRef:
+            name: skypt
+            key: email_host_port

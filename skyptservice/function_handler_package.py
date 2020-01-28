@@ -23,6 +23,7 @@ def add(event, context):
         sql = "INSERT INTO package (user, package) VALUES (%s, %s)"
         val = (event['data']['user'], event['data']['package'])
         cursor.execute(sql, val)
+        package = cursor.lastrowid
 
         ploads = {'token':event['data']['token'],'package':cursor.lastrowid}
         r = requests.get(lib_common_http.endpoints['email']['package'],json=ploads)
@@ -31,16 +32,18 @@ def add(event, context):
             response = {
                 "statusCode": 200,
                 "body": {
-                    "package": cursor.lastrowid,
-                    "mail": "S"
+                    "package": package,
+                    "mail": "S",
+                    "data": ro['body']
                 }
             }
         else:
             response = {
                 "statusCode": 206,
                 "body": {
-                    "package": cursor.lastrowid,
-                    "mail": "F"
+                    "package": package,
+                    "mail": "F",
+                    "data": ro['body']
                 }
             }
 
@@ -64,16 +67,18 @@ def get(event, context):
     try:
         dbcon.ping(reconnect=True, attempts=3, delay=5)
         cursor = dbcon.cursor(dictionary=True)
-        sql = f'SELECT id, user, package from package where id={event["data"]["package"]}'
+        sql = f'SELECT id, user, package, unix_timestamp(created) as date from package where id={event["data"]["package"]}'
         cursor.execute(sql)
         package = cursor.fetchone()
-        print(package)
-        response = {
-            "statusCode": 200,
-            "body": {
-                "package": package
+        if len(package)>0:
+            response = {
+                "statusCode": 200,
+                "body": {
+                    "package": package
+                }
             }
-        }
+        else:
+            return lib_common_http.getNotFoundErrorResponse()
     except:
         e = sys.exc_info()[0]
         response = {

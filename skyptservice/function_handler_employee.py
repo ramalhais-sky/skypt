@@ -4,6 +4,7 @@ import os
 
 import lib_common_auth
 import lib_common_employee
+import lib_common_http
 
 env_ldapnode = os.environ['skypt_ldapnode']
 env_ldapuser = os.environ['skypt_ldapuser']
@@ -77,13 +78,17 @@ def getByUser(event, context):
             }
             results.append(x)
             print(x)
-        response = {
-            "statusCode": 200,
-            "body": {
-                "total": len(results),
-                "employees": results
+        if len(results)>0:
+            response = {
+                "statusCode": 200,
+                "body": {
+                    "total": len(results),
+                    "employees": results
+                }
             }
-        }
+        else: 
+            return lib_common_http.getNotFoundErrorResponse()
+
     except Exception as e:
         response = {
             "statusCode": 404,

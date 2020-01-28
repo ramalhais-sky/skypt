@@ -15,13 +15,15 @@ def package(event, context):
     resp = lib_common_email.validatePackageRequest(event)
     if resp!=0:
         return resp
+    
+    pkg = {}
+    usr = {}
 
     # Get Package
     try:
         ploads = {'token':event['data']['token'],'package':event['data']['package']}
         r = requests.get(lib_common_http.endpoints['package']['get'],json=ploads)
         ro = json.loads(r.text)
-        pkg = {}
         if ro["statusCode"]==200:
             resp = lib_common_package.validateGetPackageResponse(ro)
             if resp!=0:
@@ -41,26 +43,32 @@ def package(event, context):
         ploads = {'token':event['data']['token'],'user':pkg['user']}
         r = requests.get(lib_common_http.endpoints['employee']['getbyuser'],json=ploads)
         ro = json.loads(r.text)
-        user = {}
         if ro["statusCode"]==200:
             resp = lib_common_employee.validateGetByUserResponse(ro)
             if resp!=0:
                 return resp
             else:
-                user = ro["body"]["employees"][0]
-                return {
-                    "statusCode": 200,
-                    "body": {
-                        "package": pkg,
-                        "user": user
-                    }
-                }
+                usr = ro["body"]["employees"][0]
         else:
             return lib_common_http.getNotFoundErrorResponse()
     except Exception as e:
         return {
             "statusCode": 400,
             "body": e
+        }
+
+    # Build and send mail
+    resp = lib_common_email.sendPackageMail({"pkg":pkg,"usr":usr})
+    
+    if resp == 0:
+        response =  {
+            "statusCode": 200,
+            "body": "Message sent"
+        }
+    else:
+        response =  {
+            "statusCode": 400,
+            "body": resp
         }
 
     return response
