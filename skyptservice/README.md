@@ -13,7 +13,7 @@ serverless deploy
 ### /package/add
 ```
 curl -k -X GET \
-  https://skypt.lisbongames.com/package/add \
+  https://hackday.imp.sky.com/package/add \
   -H 'Content-Type: application/json' \
   -d '{"token":"xxx","user":"pal31","package":"data:image/gif;base64,R0lGODlhPQBEAPeoAJo..."}'
 ```
@@ -30,7 +30,7 @@ curl -k -X GET \
 ### /package/get
 ```
 curl -k -X GET \
-  https://skypt.lisbongames.com/package/get \
+  https://hackday.imp.sky.com/package/get \
   -H 'Content-Type: application/json' \
   -d '{"token":"xxx","package":"920"}'
 ```
@@ -52,7 +52,7 @@ curl -k -X GET \
 ### /employee/getbyname
 ```
 curl -k -X GET \
-  https://skypt.lisbongames.com/employee/getbyname \
+  https://hackday.imp.sky.com/employee/getbyname \
   -H 'Content-Type: application/json' \
   -d '{"token":"xxx","name":"almeida philip"}'
 ```
@@ -76,7 +76,7 @@ curl -k -X GET \
 ### /employee/getbyuser
 ```
 curl -k -X GET \
-  https://skypt.lisbongames.com/employee/getbyuser \
+  https://hackday.imp.sky.com/employee/getbyuser \
   -H 'Content-Type: application/json' \
   -d '{"token":"xxx","user":"pal31"}'
 ```
