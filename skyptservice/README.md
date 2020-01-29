@@ -1,10 +1,12 @@
-## Dependencies:
+## Dependencies
 * Kubeless
 * Serverless
+  * ```bash
+curl -o- -L https://slss.io/install | bash
+```
 * npm
 
-## Install:
-```
+## Install
 npm install
 serverless deploy
 ```
