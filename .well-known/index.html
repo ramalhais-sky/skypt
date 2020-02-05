@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <script src="jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 </head>
@@ -8,14 +9,16 @@
 <body>
     <h1 id="title" style="text-align: center; text-emphasis: strong;">Register Package</h1>
     <h2 id="barcode" style="text-align: center; text-emphasis: strong;">(Scanning...)</h2>
+
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video -->
     <video id="player" muted autoplay playsinline="true" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></video>
-    <br />
-    <button id="capture" style="position: fixed; bottom: 0; right: 25%;">
+
+    <button id="capture" style="position: fixed; bottom: 0; right: 28%;">
       <img src="take-photo.png" width="128px">
     </button>
-    <br />
+
     <canvas id="canvas" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></canvas>
+
     <script>
         const player = document.getElementById('player');
         const canvas = document.getElementById('canvas');
@@ -68,13 +71,9 @@
                         console.log(result.text);
                     })
                     .catch(err => console.error(err));
-
             })
             .catch(err => console.error(err));
     </script>
 </body>
-
-<!-- script async src="zxing.js"></!-- script -->
-<!-- script src="video.js"></!-- script -->
 
 </html>
