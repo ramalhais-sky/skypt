@@ -147,10 +147,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/.well-known/'
-#STATIC_ROOT = '/c/Users/ramalhais/django/skypt/.well-known'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-    os.path.join(BASE_DIR, ".well-known"),
-    '/c/Users/ramalhais/django/skypt/.well-known/',
+    os.path.join(BASE_DIR, "static/"),
+    os.path.join(BASE_DIR, ".well-known/"),
 ]

@@ -1,22 +1,80 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-  <script src="jquery-1.11.3.min.js"></script>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
 </head>
+
 <body>
-  <h1>Pure JS Barcode Reader</h1>
-  <div>Barcode result: <span id="dbr"></span></div>
-  <div class="select">
-    <label for="videoSource">Video source: </label><select id="videoSource"></select>
-  </div>
-  <button id="go">Read Barcode</button>
-  <div>
-    <video muted autoplay id="video" playsinline="true"></video>
-    <canvas id="pcCanvas" width="640" height="480" style="display: none; float: bottom;"></canvas>
-    <canvas id="mobileCanvas" width="240" height="320" style="display: none; float: bottom;"></canvas>
-  </div>
+    <h1 id="title" style="text-align: center; text-emphasis: strong;">Register Package</h1>
+    <h2 id="barcode" style="text-align: center; text-emphasis: strong;">(Scanning...)</h2>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video -->
+    <video id="player" muted autoplay playsinline="true" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></video>
+    <br />
+    <button id="capture" style="position: fixed; bottom: 0; right: 25%;">
+      <img src="take-photo.png" width="128px">
+    </button>
+    <br />
+    <canvas id="canvas" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></canvas>
+    <script>
+        const player = document.getElementById('player');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const captureButton = document.getElementById('capture');
+        const audioBarcode = new Audio("barcode-found.mp3");
+
+
+        const constraints = {
+            video: true,
+        };
+
+        captureButton.addEventListener('click', () => {
+            //    player.srcObject.getVideoTracks().forEach(track => track.stop());
+
+            // Draw the video frame to the canvas.
+            context.drawImage(player, 0, 0, canvas.width, canvas.height);
+        });
+
+        // Attach the video stream to the video element and autoplay.
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                player.srcObject = stream;
+            });
+
+        function sendPic() {
+            var imgSrc = canvas.toDataURL();
+
+            // Send file here either by adding it to a `FormData` object 
+            // and sending that via XHR, or by simply passing the file into 
+            // the `send` method of an XHR instance.
+        }
+        captureButton.addEventListener('click', sendPic, false);
+
+        const codeReader = new ZXing.BrowserQRCodeReader();
+        codeReader
+            .listVideoInputDevices()
+            .then(videoInputDevices => {
+                videoInputDevices.forEach(device =>
+                    console.log(`${device.label}, ${device.deviceId}`)
+                );
+                const firstDeviceId = videoInputDevices[0].deviceId;
+
+                codeReader
+                    .decodeFromInputVideoDevice(firstDeviceId, 'player')
+                    .then(result => {
+                        barcodeElem = document.getElementById('barcode');
+                        barcodeElem.innerHTML = result.text;
+                        audioBarcode.play();
+                        console.log(result.text);
+                    })
+                    .catch(err => console.error(err));
+
+            })
+            .catch(err => console.error(err));
+    </script>
 </body>
 
-<script async src="zxing.js"></script>
-<script src="video.js"></script>
+<!-- script async src="zxing.js"></!-- script -->
+<!-- script src="video.js"></!-- script -->
+
 </html>
