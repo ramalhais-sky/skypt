@@ -18,11 +18,12 @@
     </button>
 
     <canvas id="canvas" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></canvas>
+    <canvas id="barcode-canvas" style="visibility: hidden;"></canvas>
 
     <script>
         const player = document.getElementById('player');
         const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
+        const barcodeCanvas = document.getElementById('barcode-canvas');
         const captureButton = document.getElementById('capture');
         const audioBarcode = new Audio("barcode-found.mp3");
 
@@ -31,11 +32,14 @@
             video: true,
         };
 
+        function capture(fromElem, toElem) {
+            // Draw the video frame to the canvas.
+            toElem.getContext('2d').drawImage(fromElem, 0, 0, toElem.width, toElem.height);
+        }
+
         captureButton.addEventListener('click', () => {
             //    player.srcObject.getVideoTracks().forEach(track => track.stop());
-
-            // Draw the video frame to the canvas.
-            context.drawImage(player, 0, 0, canvas.width, canvas.height);
+            capture(player, canvas);
         });
 
         // Attach the video stream to the video element and autoplay.
@@ -46,6 +50,7 @@
 
         function sendPic() {
             var imgSrc = canvas.toDataURL();
+            var barcodeImgSrc = barcodeCanvas.toDataURL();
 
             // Send file here either by adding it to a `FormData` object 
             // and sending that via XHR, or by simply passing the file into 
@@ -53,26 +58,35 @@
         }
         captureButton.addEventListener('click', sendPic, false);
 
-        const codeReader = new ZXing.BrowserQRCodeReader();
-        codeReader
-            .listVideoInputDevices()
-            .then(videoInputDevices => {
-                videoInputDevices.forEach(device =>
-                    console.log(`${device.label}, ${device.deviceId}`)
-                );
-                const firstDeviceId = videoInputDevices[0].deviceId;
+        function scanBarcodes() {
+            const codeReader = new ZXing.BrowserMultiFormatReader();
+            codeReader
+                .listVideoInputDevices()
+                .then(videoInputDevices => {
+                    videoInputDevices.forEach(device =>
+                        console.log(`${device.label}, ${device.deviceId}`)
+                    );
+                    const firstDeviceId = videoInputDevices[0].deviceId;
 
-                codeReader
-                    .decodeFromInputVideoDevice(firstDeviceId, 'player')
-                    .then(result => {
-                        barcodeElem = document.getElementById('barcode');
-                        barcodeElem.innerHTML = result.text;
-                        audioBarcode.play();
-                        console.log(result.text);
-                    })
-                    .catch(err => console.error(err));
-            })
-            .catch(err => console.error(err));
+                    codeReader
+                        .decodeFromInputVideoDevice(firstDeviceId, 'player')
+                        .then(result => {
+                            audioBarcode.play();
+                            barcodeElem = document.getElementById('barcode');
+                            barcodeElem.innerHTML += "<br/>" + result.text;
+                            capture(player, barcodeCanvas);
+                            console.log(result.text);
+                            setTimeout(scanBarcodes, 2500);
+                        })
+                        .catch(err => {
+                            console.error(err)
+                            scanBarcodes();
+                        });
+                })
+                .catch(err => console.error(err));
+        }
+
+        scanBarcodes();
     </script>
 </body>
 
