@@ -1,4 +1,4 @@
-frameworkVersion: "=1.53.0"
+frameworkVersion: ">=1.53.0"
 
 # Welcome to Serverless!
 #
