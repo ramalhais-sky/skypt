@@ -112,6 +112,13 @@ curl --request GET 'https://hackday.imp.sky.com/account/createpackage' \
 --data-raw '{"package":"235245324534645645457","description":"My new Jumper"}'
 ```
 
+### /account/listpackages
+```
+curl --request GET 'https://hackday.imp.sky.com/account/listpackages' \
+--header 'Authorization: Basic XXXXXXX' \
+--header 'Content-Type: text/plain' \
+```
+
 ## Database
 **Cluster:**
 ```

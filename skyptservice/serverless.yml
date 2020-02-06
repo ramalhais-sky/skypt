@@ -227,3 +227,9 @@ functions:
     events: 
      - http:
         path: /account/createpackage
+
+  skypt-account-listpackages:
+    handler: function_handler_account.listPackages
+    events: 
+     - http:
+        path: /account/listpackages
