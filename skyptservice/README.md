@@ -100,6 +100,16 @@ curl -k -X GET \
 }
 ```
 
+## Account (LDAP encoded credentials)
+
+### /account/createpackage
+```
+curl --request GET 'https://hackday.imp.sky.com/account/createpackage' \
+--header 'Authorization: Basic XXXXXXX' \
+--header 'Content-Type: text/plain' \
+--data-raw '{"package":"235245324534645645457","description":"My new Jumper"}'
+```
+
 ## Database
 **Cluster:**
 ```

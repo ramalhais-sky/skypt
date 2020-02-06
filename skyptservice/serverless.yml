@@ -32,6 +32,16 @@ provider:
             "health_monitor_refs": []
           },
           "virtualservice": {
+            "client_auth": {
+              "realm": "LDAP",
+              "auth_profile_ref": "https://avi.dev.hhe.nonprod.imp.sky.com/api/authprofile/authprofile-ebeb70e3-0bbb-40d6-a260-f6b0662b10e9#bskyb",
+              "request_uri_path": {
+                "match_criteria": "CONTAINS",
+                "match_str": ["account"],
+                "string_group_refs": []
+              },
+              "type": "HTTP_BASIC_AUTH"
+            },
             "east_west_placement": false,
             "vip": [{ "ip_address": { "addr": "10.79.123.99", "type": "V4" } }],
             "application_profile_ref": "/api/applicationprofile/?name=System-Secure-HTTP",
@@ -174,7 +184,6 @@ functions:
      - http:
         path: /package/get
 
-
   #  _____                 _ _ 
   # | ____|_ __ ___   __ _(_) |
   # |  _| | '_ ` _ \ / _` | | |
@@ -206,3 +215,15 @@ functions:
           secretKeyRef:
             name: skypt
             key: email_host_port
+
+#     _                             _   
+#    / \   ___ ___ ___  _   _ _ __ | |_ 
+#   / _ \ / __/ __/ _ \| | | | '_ \| __|
+#  / ___ \ (_| (_| (_) | |_| | | | | |_ 
+# /_/   \_\___\___\___/ \__,_|_| |_|\__|
+
+  skypt-account-createpackage:
+    handler: function_handler_account.createPackage
+    events: 
+     - http:
+        path: /account/createpackage
