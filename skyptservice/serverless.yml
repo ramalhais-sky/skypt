@@ -31,10 +31,13 @@ provider:
           "pool": {
             "health_monitor_refs": []
           },
+          "pool": {
+            "health_monitor_refs":["/api/healthmonitor/?name=System-TCP"]
+          },
           "virtualservice": {
             "client_auth": {
               "realm": "LDAP",
-              "auth_profile_ref": "https://avi.dev.hhe.nonprod.imp.sky.com/api/authprofile/authprofile-ebeb70e3-0bbb-40d6-a260-f6b0662b10e9#bskyb",
+              "auth_profile_ref": "/api/authprofile/?name=bskyb",
               "request_uri_path": {
                 "match_criteria": "CONTAINS",
                 "match_str": ["account"],
@@ -183,6 +186,12 @@ functions:
     events: 
      - http:
         path: /package/get
+
+  # skypt-package-loadtest:
+  #   handler: function_handler_package.loadTest
+  #   events: 
+  #    - http:
+  #       path: /package/loadtest
 
   #  _____                 _ _ 
   # | ____|_ __ ___   __ _(_) |
