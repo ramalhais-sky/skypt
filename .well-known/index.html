@@ -2,13 +2,17 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
     <h1 id="title" style="text-align: center; text-emphasis: strong;">Register Package</h1>
-    <h2 id="barcode" style="text-align: center; text-emphasis: strong;">(Scanning...)</h2>
+    <h2 id="barcode" style="text-align: center; text-emphasis: strong;"></h2>
+    <label for="recipient">Recipient: </label>
+    <input id="recipient">
 
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video -->
     <video id="player" muted autoplay playsinline="true" style="position: fixed; top: 0; width: 100%; height: 100%; z-index: -2;"></video>
@@ -26,7 +30,6 @@
         const barcodeCanvas = document.getElementById('barcode-canvas');
         const captureButton = document.getElementById('capture');
         const audioBarcode = new Audio("barcode-found.mp3");
-
 
         const constraints = {
             video: true,
@@ -85,6 +88,30 @@
                 })
                 .catch(err => console.error(err));
         }
+
+        $("#recipient").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    dataType: "json",
+                    type: 'Get',
+                    url: 'yourURL' + '?term=' + request.term,
+                    success: function(data) {
+                        $('#recipient').removeClass('ui-autocomplete-loading');
+                        response($.map(data, function(item) {
+                            // your operation on data
+                        }));
+                    },
+                    error: function(data) {
+                        $('#recipient').removeClass('ui-autocomplete-loading');
+                        response([{
+                            label: "No recipients found!",
+                            value: request.term
+                        }]);
+                    }
+                });
+            },
+            minLength: 3
+        });
 
         scanBarcodes();
     </script>
