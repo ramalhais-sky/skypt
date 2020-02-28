@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: ingress-allow-avi-range
+  namespace: imp-hackday
+  uid: imp-hackday
+spec:
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.18.0.0/16
+  podSelector: {}
+  policyTypes:
+  - Ingress
