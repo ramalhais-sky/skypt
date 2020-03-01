@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment,PureComponent } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -78,34 +78,51 @@ const resolveFilters = () => ({
 
 const staticModalOptions = createStaticModalOptions();
 
-const Employee = () => {
-  let modalRef;
-  const openModal = () => modalRef.show();
-  const saveModalRef = ref => modalRef = ref;
-  const onSelectedOption = value => {
+class Employee extends PureComponent {
+
+  constructor(navigation) {
+    super();
+    this.navigation = navigation
+    console.log(navigation)
+    this.modalRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.openModal()
+  }
+
+  openModal(){
+    return this.modalRef.current.show()
+  }
+
+  onSelectedOption(value){
     console.log(`You selected: ${value}`);
-  };
-  return (
-    <Fragment>
-      <SafeAreaView style={styles.container}>
-        <Button title="Open Modal" onPress={openModal} />
-      </SafeAreaView>
-      <ModalSelectList
-        ref={saveModalRef}
-        placeholder={"Text something..."}
-        closeButtonText={"Close"}
-        // options={staticModalOptions}
-        onSelectedOption={onSelectedOption}
-        disableTextSearch={false}
-        provider={modalOptionsProvider} 
-        pageSize={40}
-        inputName="customFilterKey"
-        filter={resolveFilters}
-        headerTintColor="purple"
-        buttonTextColor="white"
-      />
-    </Fragment>
-  );
+  }
+
+  render() {
+
+    return (
+      <Fragment>
+        {/* <SafeAreaView style={styles.container}>
+          <Button title="Open Modal" onPress={this.openModal.bind(this)} />
+        </SafeAreaView> */}
+        <ModalSelectList
+          ref={this.modalRef}
+          placeholder={"Text something..."}
+          closeButtonText={"Close"}
+          // options={staticModalOptions}
+          onSelectedOption={this.onSelectedOption}
+          disableTextSearch={false}
+          provider={modalOptionsProvider} 
+          pageSize={40}
+          inputName="customFilterKey"
+          filter={resolveFilters}
+          headerTintColor="purple"
+          buttonTextColor="white"
+        />
+      </Fragment>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

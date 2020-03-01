@@ -3,12 +3,13 @@ import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 class Screenshot extends PureComponent {
+  constructor(navigation){
+    super();
+    this.navigation = navigation
+  }
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 14, color: "red" }}>SKYPT</Text>
-        </View>
         <RNCamera
           ref={ref => {
             this.camera = ref;
@@ -34,7 +35,7 @@ class Screenshot extends PureComponent {
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+            <Text style={{ fontSize: 14 }}>Capture</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -43,9 +44,14 @@ class Screenshot extends PureComponent {
 
   takePicture = async() => {
     if (this.camera) {
-      const options = { quality: 0.5, base64: true };
+      // https://github.com/react-native-community/react-native-camera/blob/master/docs/RNCamera.md
+      const options = {
+        width: 400, 
+        doNotSave: true,
+        quality: 0.5, 
+        base64: true };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+      this.navigation.navigation.navigate('Employee',data)
     }
   };
 }

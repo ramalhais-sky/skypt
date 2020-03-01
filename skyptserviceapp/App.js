@@ -12,7 +12,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Employee} />
+        <Stack.Screen name="Home" component={Screenshot} />
+        <Stack.Screen name="Employee" component={Employee} />
       </Stack.Navigator>
     </NavigationContainer>
   );
