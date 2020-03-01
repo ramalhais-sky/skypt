@@ -9,9 +9,12 @@ import requests
 dbcon = lib_common_package.dbcon()
 
 def add(event, context):
+    print("PackageAddRequest",event, context)
     resp = lib_common_auth.validateToken(event)
     if resp!=0:
         return resp
+
+    print(event)
 
     resp = lib_common_package.validateAddPackageRequest(event)
     if resp!=0:
@@ -28,6 +31,7 @@ def add(event, context):
         ploads = {'token':event['data']['token'],'package':cursor.lastrowid}
         r = requests.get(lib_common_http.endpoints['email']['package'],json=ploads)
         ro = json.loads(r.text)
+        print("EmailPackage",ro)
         if ro["statusCode"]==200:
             response = {
                 "statusCode": 200,
@@ -48,9 +52,10 @@ def add(event, context):
             }
 
     except: # catch *all* exceptions
+        print("ERROR",ploads)
         e = sys.exc_info()[0]
         response = {
-            "statusCode": 400,
+            "statusCode": 423,
             "body": e
         }
 
@@ -70,6 +75,7 @@ def get(event, context):
         sql = f'SELECT id, user, package, unix_timestamp(created) as date from package where id={event["data"]["package"]}'
         cursor.execute(sql)
         package = cursor.fetchone()
+        print("GetPackageOrigin",package)
         if len(package)>0:
             response = {
                 "statusCode": 200,
@@ -82,7 +88,7 @@ def get(event, context):
     except:
         e = sys.exc_info()[0]
         response = {
-            "statusCode": 400,
+            "statusCode": 424,
             "body": e
         }
 

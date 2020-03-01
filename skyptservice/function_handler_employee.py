@@ -77,7 +77,7 @@ def getByUser(event, context):
                 "mobile": lib_common_employee.getPropertyValue(user,"mobile")
             }
             results.append(x)
-            print(x)
+            print("EMPLOYEE",x)
         if len(results)>0:
             response = {
                 "statusCode": 200,

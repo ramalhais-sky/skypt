@@ -24,6 +24,7 @@ def package(event, context):
         ploads = {'token':event['data']['token'],'package':event['data']['package']}
         r = requests.get(lib_common_http.endpoints['package']['get'],json=ploads)
         ro = json.loads(r.text)
+        print("Email_GetPackage",ro)
         if ro["statusCode"]==200:
             resp = lib_common_package.validateGetPackageResponse(ro)
             if resp!=0:
@@ -33,6 +34,7 @@ def package(event, context):
         else:
             return lib_common_http.getNotFoundErrorResponse()
     except Exception as e:
+        print("Email_GetPackage_ERROR",ploads)
         return {
             "statusCode": 400,
             "body": e
@@ -43,6 +45,7 @@ def package(event, context):
         ploads = {'token':event['data']['token'],'user':pkg['user']}
         r = requests.get(lib_common_http.endpoints['employee']['getbyuser'],json=ploads)
         ro = json.loads(r.text)
+        print("Email_GetUser",ro)
         if ro["statusCode"]==200:
             resp = lib_common_employee.validateGetByUserResponse(ro)
             if resp!=0:
@@ -52,8 +55,9 @@ def package(event, context):
         else:
             return lib_common_http.getNotFoundErrorResponse()
     except Exception as e:
+        print("Email_GetUser_ERROR",ploads)
         return {
-            "statusCode": 400,
+            "statusCode": 454,
             "body": e
         }
 
@@ -67,7 +71,7 @@ def package(event, context):
         }
     else:
         response =  {
-            "statusCode": 400,
+            "statusCode": 484,
             "body": resp
         }
 

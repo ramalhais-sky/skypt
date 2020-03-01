@@ -1,12 +1,12 @@
 endpoints = {
     "email": {
-        "package": 'http://skypt-email-package:8080/email/package'
+        "package": 'http://skyptemailpackage:8080/emailpackage'
     },
     "package": {
-        "get": 'http://skypt-package-get:8080/package/get'
+        "get": 'http://skyptpackageget:8080/packageget'
     },
     "employee": {
-        "getbyuser": 'http://skypt-employee-getbyuser:8080/employee/getbyuser'
+        "getbyuser": 'http://skyptemployeegetbyuser:8080/employeegetbyuser'
     }
 }
 

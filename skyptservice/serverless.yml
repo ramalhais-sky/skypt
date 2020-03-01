@@ -55,6 +55,10 @@ provider:
                 "enable_ssl": true,
                 "port": 443,
                 "port_range_end": 443
+              },
+              {
+                "port": 80,
+                "port_range_end": 80
               }
             ],
             "analytics_policy" : {
@@ -115,11 +119,11 @@ functions:
   # | |___| | | | | | |_) | | (_) | |_| |  __/  __/
   # |_____|_| |_| |_| .__/|_|\___/ \__, |\___|\___|
   #                 |_|            |___/   
-  skypt-employee-getbyname:
+  skyptemployeegetbyname:
     handler: function_handler_employee.getByName
     events: 
      - http:
-        path: /employee/getbyname
+        path: /employeegetbyname
     environment:
       - name: skypt_ldapnode
         valueFrom:
@@ -142,11 +146,11 @@ functions:
             name: skypt
             key: ldapbase
 
-  skypt-employee-getbyuser:
+  skyptemployeegetbyuser:
     handler: function_handler_employee.getByUser
     events: 
      - http:
-        path: /employee/getbyuser
+        path: /employeegetbyuser
     environment:
       - name: skypt_ldapnode
         valueFrom:
@@ -175,17 +179,17 @@ functions:
   # |  __/ (_| | (__|   < (_| | (_| |  __/
   # |_|   \__,_|\___|_|\_\__,_|\__, |\___|
   #                            |___/   
-  skypt-package-add:
+  skyptpackageadd:
     handler: function_handler_package.add
     events: 
      - http:
-        path: /package/add
+        path: /packageadd
 
-  skypt-package-get:
+  skyptpackageget:
     handler: function_handler_package.get
     events: 
      - http:
-        path: /package/get
+        path: /packageget
 
   # skypt-package-loadtest:
   #   handler: function_handler_package.loadTest
@@ -198,11 +202,11 @@ functions:
   # |  _| | '_ ` _ \ / _` | | |
   # | |___| | | | | | (_| | | |
   # |_____|_| |_| |_|\__,_|_|_|
-  skypt-email-package:
+  skyptemailpackage:
     handler: function_handler_email.package
     events: 
      - http:
-        path: /email/package
+        path: /emailpackage
     environment:
       - name: skypt_email_sender
         valueFrom:
@@ -231,14 +235,14 @@ functions:
 #  / ___ \ (_| (_| (_) | |_| | | | | |_ 
 # /_/   \_\___\___\___/ \__,_|_| |_|\__|
 
-  skypt-account-createpackage:
+  skyptaccountcreatepackage:
     handler: function_handler_account.createPackage
     events: 
      - http:
-        path: /account/createpackage
+        path: /accountcreatepackage
 
-  skypt-account-listpackages:
+  skyptaccountlistpackages:
     handler: function_handler_account.listPackages
     events: 
      - http:
-        path: /account/listpackages
+        path: /accountlistpackages

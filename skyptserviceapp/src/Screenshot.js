@@ -46,9 +46,9 @@ class Screenshot extends PureComponent {
     if (this.camera) {
       // https://github.com/react-native-community/react-native-camera/blob/master/docs/RNCamera.md
       const options = {
-        width: 400, 
+        width: 300, 
         doNotSave: true,
-        quality: 0.5, 
+        quality: 0.25, 
         base64: true };
       const data = await this.camera.takePictureAsync(options);
       this.navigation.navigation.navigate('Employee',data)

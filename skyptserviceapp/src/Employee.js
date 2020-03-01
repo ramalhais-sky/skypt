@@ -34,19 +34,21 @@ const modalOptionsProvider = async ({ page, pageSize, customFilterKey }) => {
   let options = [];
   try {
     if (customFilterKey && customFilterKey.length>3){
-      let response = await fetch('http://hackday.imp.sky.com/employee/getbyname', {
+      console.log("Sending Employee Request")
+      let response = await fetch('http://hackday.imp.sky.com/employeegetbyname', {
           method: 'POST',
+          cache: 'no-cache',
           headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
           },
           body: JSON.stringify({
               token: '772FDCDA27C4572D141E27B3E21E5',
               name: customFilterKey,
           }),
       });
-      console.log(response)
       if (response.status == 200 ){
         let resp = await response.json();
+        console.log(resp)
         resp.body.employees.forEach((employee)=>{
             options.push(
               { 
@@ -61,14 +63,14 @@ const modalOptionsProvider = async ({ page, pageSize, customFilterKey }) => {
     // TODO: Modal alert box
     console.error(error);
   }
-//   if (!!customFilterKey) {
-//     options = options.filter(option => new RegExp(`^.*?(${customFilterKey}).*?$`).test(option.label));
-//   }
-  if (options.length==0 && customFilterKey && customFilterKey.length>0) {
-    options.push({
-      label:"Not result found. Please try again!",
-      value:false})
-  }
+  // if (!!customFilterKey) {
+  //   options = options.filter(option => new RegExp(`^.*?(${customFilterKey}).*?$`).test(option.label));
+  // }
+  // if (options.length==0 && customFilterKey && customFilterKey.length>0) {
+  //   options.push({
+  //     label:"Not result found. Please try again!",
+  //     value:false})
+  // }
   return new Promise(resolve => setTimeout(() => resolve(options), 1000));
 };
 
@@ -83,7 +85,7 @@ class Employee extends PureComponent {
   constructor(navigation) {
     super();
     this.navigation = navigation
-    console.log(navigation)
+    this.params = navigation.route.params
     this.modalRef = React.createRef();
   }
 
@@ -96,7 +98,13 @@ class Employee extends PureComponent {
   }
 
   onSelectedOption(value){
-    console.log(`You selected: ${value}`);
+    let data = {
+      employee: value,
+      params: this.params
+    }
+    this.navigation.navigation.navigate('Confirmation',data)
+//    console.log(data);
+// {"employee": {"cn": "Martin, Frans", "email": "mar@sky.uk", "mobile": "+", "user": "pal"}, "params": {"base64": "/9j/4AAQSkZJRgABAQAAAQABAA...", "deviceOrientation": 1, "height": 300, "pictureOrientation": 1, "width": 400}}
   }
 
   render() {
@@ -108,10 +116,10 @@ class Employee extends PureComponent {
         </SafeAreaView> */}
         <ModalSelectList
           ref={this.modalRef}
-          placeholder={"Text something..."}
+          placeholder={"Enter employee name..."}
           closeButtonText={"Close"}
           // options={staticModalOptions}
-          onSelectedOption={this.onSelectedOption}
+          onSelectedOption={this.onSelectedOption.bind(this)}
           disableTextSearch={false}
           provider={modalOptionsProvider} 
           pageSize={40}
